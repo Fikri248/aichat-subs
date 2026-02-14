@@ -2,221 +2,232 @@
 <html lang="id"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AI Premium</title>
+<title>AI Premium - ChatGPT Plus GPT-5.2</title>
 <meta content="Upgrade ke ChatGPT Plus GPT-5.2 untuk bantu ngerjain tugas, skripsi, dan project kuliah." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#7c3bed",
-                        "primary-hover": "#6d28d9",
-                        "secondary": "#10B981",
-                        "background-light": "#f7f6f8",
-                        "background-dark": "#171121",
-                        "surface-light": "#ffffff",
-                        "surface-dark": "#1f1a2e",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"]
-                    },
-                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "2rem", "full": "9999px"},
-                    boxShadow: {
-                        'glow': '0 0 20px -5px rgba(124, 59, 237, 0.3)',
-                        'glow-lg': '0 0 40px -10px rgba(124, 59, 237, 0.4)',
-                    }
-                },
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                "accent": "#10a37f",
+                "accent-hover": "#0d8c6d",
+                "surface": "#f7f7f8",
+                "border": "#e5e5e5",
+                "tp": "#0d0d0d",
+                "ts": "#6e6e80",
+                "tt": "#acacbe",
             },
-        }
-    </script>
+            fontFamily: { "sans": ["Inter", "system-ui", "sans-serif"] },
+        },
+    },
+}
+</script>
 <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-        }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        .dark .glass-nav {
-            background: rgba(23, 17, 33, 0.85);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #171121 0%, #7c3bed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .dark .gradient-text {
-            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
-        }
-        .bg-grid-pattern {
-            background-image: radial-gradient(rgba(124, 59, 237, 0.1) 1px, transparent 1px);
-            background-size: 32px 32px;
-        }
-    </style>
+body { font-family: 'Inter', system-ui, sans-serif; scroll-behavior: smooth; }
+.glass-nav { background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+
+/* === PER-LETTER SHINE REVEAL — huruf muncul saat shine nyapu === */
+@keyframes letter-shine-reveal {
+    0%   { opacity: 0; color: #0d0d0d; }
+    12%  { opacity: 1; color: #b0b0b0; }
+    24%  { opacity: 1; color: #0d0d0d; }
+    100% { opacity: 1; color: #0d0d0d; }
+}
+.shine-letter {
+    opacity: 0;
+    color: #0d0d0d;
+}
+
+/* === Material You Badge === */
+@keyframes badge-pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes badge-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(16, 163, 127, 0.3); }
+    50% { box-shadow: 0 0 12px 4px rgba(16, 163, 127, 0.15); }
+}
+.m3-badge {
+    animation: badge-pop 0.5s cubic-bezier(0.2, 0, 0, 1) both, badge-glow 2.5s ease-in-out infinite;
+    animation-delay: 0.3s, 1s;
+}
+
+/* === Material You Animations === */
+@keyframes m3-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes m3-scale-in { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+
+.m3-fade-in { animation: m3-fade-in 0.4s cubic-bezier(0.2, 0, 0, 1) both; }
+.m3-scale-in { animation: m3-scale-in 0.5s cubic-bezier(0.2, 0, 0, 1) both; }
+
+.m3-ripple { position: relative; overflow: hidden; }
+.m3-ripple::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,0,0,0.06) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s cubic-bezier(0.2, 0, 0, 1); }
+.m3-ripple:hover::after { opacity: 1; }
+
+.m3-card { transition: all 0.3s cubic-bezier(0.2, 0, 0, 1); }
+.m3-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+.m3-btn { transition: all 0.2s cubic-bezier(0.2, 0, 0, 1); }
+.m3-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 12px rgba(16, 163, 127, 0.3); }
+.m3-btn:active { transform: scale(0.98); }
+
+.m3-reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.2, 0, 0, 1); }
+.m3-reveal.visible { opacity: 1; transform: translateY(0); }
+.m3-reveal-delay-1 { transition-delay: 0.1s; }
+.m3-reveal-delay-2 { transition-delay: 0.2s; }
+.m3-reveal-delay-3 { transition-delay: 0.3s; }
+.m3-reveal-delay-4 { transition-delay: 0.4s; }
+
+details[open] summary ~ * { animation: m3-fade-in 0.3s cubic-bezier(0.2, 0, 0, 1); }
+
+@keyframes dropdown-in { from { opacity: 0; transform: translateY(-4px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.dropdown-menu { animation: dropdown-in 0.2s cubic-bezier(0.2, 0, 0, 1); }
+</style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 antialiased selection:bg-primary/20 selection:text-primary">
+<body class="bg-white text-tp antialiased">
+
 <!-- Header -->
-<header class="fixed top-0 w-full z-50 glass-nav border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex justify-between items-center h-16">
-<!-- Logo -->
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
-<span class="material-icons-round text-xl">auto_awesome</span>
+<header class="fixed top-0 w-full z-50 glass-nav border-b border-border">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<a href="#" class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-white">
+<span class="material-icons-round text-base">auto_awesome</span>
 </div>
-<span class="font-display font-bold text-xl tracking-tight text-gray-900 dark:text-white">AI Chat <span class="text-primary font-medium">Plus</span></span>
-</div>
-<!-- Desktop Nav -->
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="#features">Fitur</a>
-<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="#comparison">Perbandingan</a>
-<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="#pricing">Harga</a>
-<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="#faq">FAQ</a>
-<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="#terms">S&K</a>
+<span class="font-semibold text-base tracking-tight">ChatGPT <span class="text-ts font-normal">Plus</span></span>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[13px] text-ts hover:text-tp transition-colors duration-200" href="#features">Fitur</a>
+<a class="text-[13px] text-ts hover:text-tp transition-colors duration-200" href="#comparison">Perbandingan</a>
+<a class="text-[13px] text-ts hover:text-tp transition-colors duration-200" href="#pricing">Harga</a>
+<a class="text-[13px] text-ts hover:text-tp transition-colors duration-200" href="#faq">FAQ</a>
+<a class="text-[13px] text-ts hover:text-tp transition-colors duration-200" href="#terms">S&K</a>
 </nav>
-<!-- CTA -->
 <div class="hidden md:flex">
-<a class="bg-primary hover:bg-primary-hover text-white px-5 py-2 rounded-lg font-medium text-sm transition-all shadow-glow hover:shadow-glow-lg transform hover:-translate-y-0.5" href="https://wa.me/6281234228779?text=Halo%2C%20saya%20mau%20beli%20ChatGPT%20Plus%20GPT-5.2%20yang%2020K%2Fbulan.%20Bisa%20minta%20info%20cara%20pembayarannya%3F" target="_blank">
-                        Dapatkan Plus
-                    </a>
+<a class="m3-btn bg-accent hover:bg-accent-hover text-white px-4 py-2 rounded-full text-[13px] font-medium" href="https://wa.me/6281234228779?text=Halo%2C%20saya%20mau%20beli%20ChatGPT%20Plus%20GPT-5.2%20yang%2020K%2Fbulan.%20Bisa%20minta%20info%20cara%20pembayarannya%3F" target="_blank">Dapatkan Plus</a>
 </div>
-<!-- Mobile Menu Button -->
-<button id="mobileMenuBtn" class="md:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
-<span class="material-icons-round">menu</span>
+<button id="mobileMenuBtn" class="md:hidden p-1.5 text-ts hover:text-tp transition-colors">
+<span class="material-icons-round text-xl">menu</span>
 </button>
 </div>
 </div>
-
-<!-- Mobile Menu -->
-<div id="mobileMenu" class="md:hidden hidden">
-<nav class="px-4 pt-2 pb-4 space-y-2 bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800">
-<a class="block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#features">Fitur</a>
-<a class="block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#comparison">Perbandingan</a>
-<a class="block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#pricing">Harga</a>
-<a class="block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#faq">FAQ</a>
-<a class="block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#terms">Syarat & Ketentuan</a>
-<a class="block mt-3 px-4 py-3 bg-primary hover:bg-primary-hover text-white text-center font-semibold text-sm rounded-lg shadow-lg transition-all" href="https://wa.me/6281234228779?text=Halo%2C%20saya%20mau%20beli%20ChatGPT%20Plus%20GPT-5.2%20yang%2020K%2Fbulan.%20Bisa%20minta%20info%20cara%20pembayarannya%3F" target="_blank">
-                    Dapatkan Plus
-                </a>
+<div id="mobileMenu" class="md:hidden hidden border-t border-border">
+<nav class="px-4 py-3 space-y-1 bg-white dropdown-menu">
+<a class="block px-3 py-2.5 text-sm text-ts hover:text-tp hover:bg-surface rounded-lg transition-all duration-200" href="#features">Fitur</a>
+<a class="block px-3 py-2.5 text-sm text-ts hover:text-tp hover:bg-surface rounded-lg transition-all duration-200" href="#comparison">Perbandingan</a>
+<a class="block px-3 py-2.5 text-sm text-ts hover:text-tp hover:bg-surface rounded-lg transition-all duration-200" href="#pricing">Harga</a>
+<a class="block px-3 py-2.5 text-sm text-ts hover:text-tp hover:bg-surface rounded-lg transition-all duration-200" href="#faq">FAQ</a>
+<a class="block px-3 py-2.5 text-sm text-ts hover:text-tp hover:bg-surface rounded-lg transition-all duration-200" href="#terms">Syarat & Ketentuan</a>
+<a class="block mt-2 px-3 py-2.5 bg-accent hover:bg-accent-hover text-white text-center text-sm font-medium rounded-lg transition-colors" href="https://wa.me/6281234228779?text=Halo%2C%20saya%20mau%20beli%20ChatGPT%20Plus%20GPT-5.2%20yang%2020K%2Fbulan.%20Bisa%20minta%20info%20cara%20pembayarannya%3F" target="_blank">Dapatkan Plus</a>
 </nav>
 </div>
 </header>
 
 <script>
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const menuIcon = mobileMenuBtn.querySelector('.material-icons-round');
-    
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        
-        if (mobileMenu.classList.contains('hidden')) {
-            menuIcon.textContent = 'menu';
-        } else {
-            menuIcon.textContent = 'close';
-        }
-    });
-
-    const mobileLinks = mobileMenu.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            menuIcon.textContent = 'menu';
-        });
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-            mobileMenu.classList.add('hidden');
-            menuIcon.textContent = 'menu';
-        }
-    });
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const menuIcon = mobileMenuBtn.querySelector('.material-icons-round');
+mobileMenuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    menuIcon.textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuIcon.textContent = 'menu'; });
+});
+document.addEventListener('click', (e) => {
+    if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) { mobileMenu.classList.add('hidden'); menuIcon.textContent = 'menu'; }
+});
 </script>
 
-<main class="pt-16">
-<!-- Hero Section -->
-<section class="relative overflow-hidden pt-8 pb-12 lg:pt-12 lg:pb-16">
-<!-- Background Elements -->
-<div class="absolute inset-0 bg-grid-pattern opacity-[0.4] z-0 pointer-events-none"></div>
-<div class="absolute top-0 right-0 -mr-20 -mt-20 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] z-0"></div>
-<div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[100px] z-0"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-<!-- Text Content -->
-<div class="text-center lg:text-left space-y-8">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mt-0">
-<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                            GPT-5.2 Kini Tersedia
-                        </div>
-<h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.15]">
-                            AI <span class="gradient-text">Terpintar</span> Buat Ngerjain Tugas & Skripsi
-                        </h1>
-<p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                            Kerjain tugas kuliah, riset skripsi, bikin presentasi, sampai coding project jadi lebih cepat dan gampang. ChatGPT Plus versi terbaru dengan harga mahasiswa banget!
-                        </p>
-<div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-<a class="inline-flex justify-center items-center px-8 py-4 rounded-xl bg-primary hover:bg-primary-hover text-white font-semibold text-lg transition-all shadow-glow hover:shadow-glow-lg transform hover:-translate-y-1" href="https://wa.me/6281234228779?text=Halo%2C%20saya%20mau%20beli%20ChatGPT%20Plus%20GPT-5.2%20yang%2020K%2Fbulan.%20Bisa%20minta%20info%20cara%20pembayarannya%3F" target="_blank">
-<span class="material-icons-round mr-2">bolt</span>
-                                Beli Sekarang
-                            </a>
-<a class="inline-flex justify-center items-center px-8 py-4 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 font-medium text-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" href="#features">
-                                Lihat Fitur
-                            </a>
+<main class="pt-14">
+
+<!-- Hero -->
+<section class="relative pt-[57px] pb-16 lg:pb-24 overflow-hidden">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-14 items-center">
+<div class="text-center lg:text-left">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 text-accent text-xs font-medium tracking-wide mb-6">
+<span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+GPT-5.2 Kini Tersedia
 </div>
-<div class="pt-4 mb-0 flex items-center justify-center lg:justify-start gap-4 text-sm text-gray-500 dark:text-gray-400">
+
+<h1 id="hero-heading" class="text-4xl sm:text-5xl lg:text-[56px] font-bold tracking-tight leading-[1.1] mb-6 text-tp">
+AI Terpintar Buat Ngerjain Tugas & Skripsi
+</h1>
+
+<p class="text-lg text-ts leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8">
+Kerjain tugas kuliah, riset skripsi, bikin presentasi, sampai coding project jadi lebih cepat. ChatGPT Plus versi terbaru dengan harga mahasiswa.
+</p>
+<div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8">
+<a class="m3-btn m3-ripple inline-flex justify-center items-center px-7 py-3.5 rounded-full bg-accent hover:bg-accent-hover text-white font-medium transition-colors" href="https://wa.me/6281234228779?text=Halo%2C%20saya%20mau%20beli%20ChatGPT%20Plus%20GPT-5.2%20yang%2020K%2Fbulan.%20Bisa%20minta%20info%20cara%20pembayarannya%3F" target="_blank">Beli Sekarang</a>
+<a class="m3-btn m3-ripple inline-flex justify-center items-center px-7 py-3.5 rounded-full border border-border text-ts font-medium hover:bg-surface transition-colors" href="#features">Lihat Fitur</a>
+</div>
+<div class="flex items-center justify-center lg:justify-start gap-3 text-sm text-tt">
 <div class="flex -space-x-2">
-<div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white dark:border-background-dark bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBANPHDM5akBPtQ4BdwF-fFyTK4DmuAjywgUVcICNr54R_q1uVNE8vkp-4608QjAxtLHbt7bm15Woo1IzFna88cklKpuqYLlZUJtwdfCf--HFnL0kWRJhoRcuVBrLUcmm4jxLI26SZyI4yyI4rI7eRVfznqgBht4QB-SiwqQs7_IC4sTWjgtPk2avct2bktw9_SThxkINebTazcjEGBQGhXm6Wyc5ExfyeGIzswrfHrUInHZNhuruaD4wV9jKiUjQO089RgnPZ7UQkk');"></div>
-<div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white dark:border-background-dark bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEqcjfLS3kuZFooAk11yXkv-HxdoY8e6Xb9q-nyF82rj1iAwSlUvq_-h5_KJzeCvHgso0jNIEh2mWQMWRIroJPM45g7S-mpWwidIeq2almchFSFHazSw5rlEC7_nkO_TMM24DysOGwFbEN9oqzoiDpe70d0CYFC5rmw5v8ykzjioDABzB8g3yJdKDOxHJbjT2loc22n3nCP3lynztHcHzQvBodkC3r_QDkyn_yf7HXBZ8deY2pf8kQHcR0gsa-nXyzvhbSsmgtbMnG');"></div>
-<div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white dark:border-background-dark bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCjWIzlRaFVRqKiZxckMz4RqiGTiHGwYnOPc8crLzlsHjPOiakLklZAlD5uCdUkxyok0XPrOSeDVjSW8uPn48MD3CfKInXDBvAC0NDKfhJmh_qdzhMtUHUoLcwJvt_4MKGQF79xIIsCzWSMTdu7o2YaWlOtTwOWyZqAfeI-TXKZnEeruO0BHgAWuxhiUNlodtlHR5iMHwMleWAjX4bKuOMLmJv2i77NjUZuh5h98_dqxnL7SQ7THotzquNprTnM7UWP826VSQBHBR5N');"></div>
+<div class="w-7 h-7 rounded-full bg-gray-200 border-2 border-white bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBANPHDM5akBPtQ4BdwF-fFyTK4DmuAjywgUVcICNr54R_q1uVNE8vkp-4608QjAxtLHbt7bm15Woo1IzFna88cklKpuqYLlZUJtwdfCf--HFnL0kWRJhoRcuVBrLUcmm4jxLI26SZyI4yyI4rI7eRVfznqgBht4QB-SiwqQs7_IC4sTWjgtPk2avct2bktw9_SThxkINebTazcjEGBQGhXm6Wyc5ExfyeGIzswrfHrUInHZNhuruaD4wV9jKiUjQO089RgnPZ7UQkk');"></div>
+<div class="w-7 h-7 rounded-full bg-gray-200 border-2 border-white bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEqcjfLS3kuZFooAk11yXkv-HxdoY8e6Xb9q-nyF82rj1iAwSlUvq_-h5_KJzeCvHgso0jNIEh2mWQMWRIroJPM45g7S-mpWwidIeq2almchFSFHazSw5rlEC7_nkO_TMM24DysOGwFbEN9oqzoiDpe70d0CYFC5rmw5v8ykzjioDABzB8g3yJdKDOxHJbjT2loc22n3nCP3lynztHcHzQvBodkC3r_QDkyn_yf7HXBZ8deY2pf8kQHcR0gsa-nXyzvhbSsmgtbMnG');"></div>
+<div class="w-7 h-7 rounded-full bg-gray-200 border-2 border-white bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCjWIzlRaFVRqKiZxckMz4RqiGTiHGwYnOPc8crLzlsHjPOiakLklZAlD5uCdUkxyok0XPrOSeDVjSW8uPn48MD3CfKInXDBvAC0NDKfhJmh_qdzhMtUHUoLcwJvt_4MKGQF79xIIsCzWSMTdu7o2YaWlOtTwOWyZqAfeI-TXKZnEeruO0BHgAWuxhiUNlodtlHR5iMHwMleWAjX4bKuOMLmJv2i77NjUZuh5h98_dqxnL7SQ7THotzquNprTnM7UWP826VSQBHBR5N');"></div>
 </div>
 <span>Dipercaya banyak mahasiswa</span>
 </div>
 </div>
-<!-- Hero Image -->
-<div class="relative lg:h-[600px] flex items-center justify-center">
-<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-full filter blur-3xl opacity-30 transform translate-x-10 translate-y-10"></div>
-<div class="relative w-full max-w-lg bg-surface-light dark:bg-surface-dark rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500 ease-out">
-<div class="flex items-center px-4 py-3 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50">
-<div class="flex gap-2">
-<div class="w-3 h-3 rounded-full bg-red-400"></div>
-<div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-<div class="w-3 h-3 rounded-full bg-green-400"></div>
+
+<!-- ChatGPT UI Mockup -->
+<div class="m3-scale-in relative" style="animation-delay:0.2s">
+<div class="w-full max-w-lg mx-auto bg-white rounded-2xl border border-border shadow-[0_2px_24px_rgba(0,0,0,0.06)] overflow-hidden">
+<div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+<div class="relative" id="modelSelector">
+<button id="modelBtn" class="flex items-center gap-1.5 text-sm font-semibold text-tp hover:bg-surface px-2 py-1 rounded-lg transition-colors duration-200">
+<span id="modelLabel">ChatGPT 5.2</span>
+<span class="material-icons-round text-tt text-lg transition-transform duration-300" id="dropdownArrow">expand_more</span>
+</button>
+<div id="modelDropdown" class="hidden absolute top-full left-0 mt-1 w-56 bg-white rounded-xl border border-border shadow-lg py-2 z-10 dropdown-menu">
+<div class="px-3 py-1.5 text-[11px] font-semibold text-tt uppercase tracking-wider">GPT-5.2</div>
+<button data-model="auto" data-label="ChatGPT 5.2" class="model-option active w-full flex items-center justify-between px-3 py-2.5 hover:bg-surface transition-colors duration-150 rounded-lg">
+<div class="text-left">
+<div class="text-sm font-medium text-tp">Auto</div>
+<div class="text-[11px] text-tt">Decides how long to think</div>
 </div>
-<div class="mx-auto text-xs font-medium text-gray-500">ChatGPT 5.2</div>
+<span class="model-check material-icons-round text-accent text-lg transition-opacity duration-200">check</span>
+</button>
+<button data-model="instant" data-label="ChatGPT 5.2 Instant" class="model-option w-full flex items-center justify-between px-3 py-2.5 hover:bg-surface transition-colors duration-150 rounded-lg">
+<div class="text-left">
+<div class="text-sm font-medium text-tp">Instant</div>
+<div class="text-[11px] text-tt">Answers right away</div>
 </div>
-<div class="p-6 space-y-6 h-[400px] flex flex-col justify-end bg-surface-light dark:bg-surface-dark">
-<div class="flex gap-4">
-<div class="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-xs font-bold text-gray-600">MH</div>
-<div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-2xl rounded-tl-none max-w-[85%]">
-<p class="text-sm text-gray-800 dark:text-gray-200">Buatin outline lengkap untuk skripsi tentang Machine Learning, termasuk metodologi dan referensi jurnal terbaru!</p>
+<span class="model-check material-icons-round text-accent text-lg opacity-0 transition-opacity duration-200">check</span>
+</button>
+<button data-model="thinking" data-label="ChatGPT 5.2 Thinking" class="model-option w-full flex items-center justify-between px-3 py-2.5 hover:bg-surface transition-colors duration-150 rounded-lg">
+<div class="text-left">
+<div class="text-sm font-medium text-tp">Thinking</div>
+<div class="text-[11px] text-tt">Thinks longer for better answers</div>
+</div>
+<span class="model-check material-icons-round text-accent text-lg opacity-0 transition-opacity duration-200">check</span>
+</button>
+<div class="border-t border-gray-100 mt-1 pt-1">
+<button class="w-full flex items-center justify-between px-3 py-2.5 hover:bg-surface transition-colors duration-150 rounded-lg">
+<div class="text-sm font-medium text-tp">Legacy models</div>
+<span class="material-icons-round text-tt text-lg">chevron_right</span>
+</button>
 </div>
 </div>
-<div class="flex gap-4">
-<div class="w-8 h-8 rounded-full bg-primary flex-shrink-0 flex items-center justify-center text-white">
-<span class="material-icons-round text-sm">auto_awesome</span>
 </div>
-<div class="space-y-3 max-w-[90%]">
-<div class="flex items-center gap-2 text-xs text-gray-400">
-<span class="animate-pulse w-2 h-2 bg-secondary rounded-full"></span>
-                                            Thinking Mode Active
-                                        </div>
-<div class="text-sm text-gray-800 dark:text-gray-200 leading-relaxed">
-                                            Siap! Berikut outline skripsi Machine Learning yang lengkap:<br/><br/>
-<strong>BAB 1 - Pendahuluan:</strong> Latar belakang, rumusan masalah...<br/>
-<strong>BAB 2 - Tinjauan Pustaka:</strong> Teori ML, algoritma supervised learning...<br/>
-<strong>Referensi:</strong> LeCun et al. (2025), Deep Learning in Computer Vision...
-                                        </div>
-<div class="h-2 w-24 bg-gray-100 dark:bg-gray-800 rounded animate-pulse"></div>
+</div>
+<div class="flex items-center justify-center py-24 px-6">
+<h2 class="text-2xl sm:text-3xl font-semibold text-tp tracking-tight text-center leading-snug m3-fade-in" style="animation-delay:0.5s">ChatGPT Plus Activated<br/><span class="text-accent">+ Turbo Mode</span></h2>
+</div>
+<div class="px-4 pb-4">
+<div class="flex items-center gap-3 bg-surface border border-border rounded-2xl px-4 py-3">
+<span class="material-icons-round text-tt text-xl">add</span>
+<span class="flex-1 text-sm text-tt">Ask anything</span>
+<span class="material-icons-round text-tt text-xl">mic</span>
+<div class="w-8 h-8 rounded-full bg-tp flex items-center justify-center">
+<span class="material-icons-round text-white text-base">graphic_eq</span>
 </div>
 </div>
 </div>
@@ -226,450 +237,455 @@
 </div>
 </section>
 
-<!-- Features Section -->
-<section class="py-20 bg-white dark:bg-surface-dark border-y border-gray-100 dark:border-gray-800" id="features">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto mb-16">
-<h2 class="text-primary font-semibold tracking-wide uppercase text-sm mb-2">Fitur Premium</h2>
-<h3 class="text-3xl font-display font-bold text-gray-900 dark:text-white mb-4">Kenapa Harus Pakai GPT-5.2 Plus?</h3>
-<p class="text-gray-600 dark:text-gray-400">Versi gratisan sering lemot dan dibatasi? Upgrade sekarang buat akses unlimited dengan fitur terlengkap!</p>
+<!-- Features -->
+<section class="py-20 bg-surface border-y border-border" id="features">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-2xl mx-auto mb-14 m3-reveal">
+<p class="text-accent text-sm font-medium mb-2">Fitur Premium</p>
+<h2 class="text-3xl font-bold tracking-tight mb-3">Kenapa Harus Pakai GPT-5.2 Plus?</h2>
+<p class="text-ts">Versi gratisan sering lemot dan dibatasi? Upgrade sekarang buat akses unlimited dengan fitur terlengkap.</p>
 </div>
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-<!-- Feature 1 -->
-<div class="p-6 rounded-2xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800 hover:border-primary/30 transition-all group">
-<div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/30 text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-icons-round text-2xl">psychology</span>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="m3-card m3-ripple m3-reveal m3-reveal-delay-1 p-5 rounded-2xl bg-white border border-border hover:border-accent/30 cursor-default">
+<div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
+<span class="material-icons-round text-xl">psychology</span>
 </div>
-<h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Thinking Mode</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">AI yang bisa "mikir" beneran. Perfect buat analisis data, solve problem matematika, atau riset yang butuh logika mendalam.</p>
+<h4 class="font-semibold text-sm mb-1.5">Thinking Mode</h4>
+<p class="text-[13px] text-ts leading-relaxed">AI yang bisa mikir mendalam. Perfect buat analisis data, solve problem matematika, atau riset logis.</p>
 </div>
-
-<!-- Feature 2 -->
-<div class="p-6 rounded-2xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800 hover:border-secondary/30 transition-all group">
-<div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 text-secondary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-icons-round text-2xl">rocket_launch</span>
+<div class="m3-card m3-ripple m3-reveal m3-reveal-delay-2 p-5 rounded-2xl bg-white border border-border hover:border-accent/30 cursor-default">
+<div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
+<span class="material-icons-round text-xl">rocket_launch</span>
 </div>
-<h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Unlimited Chat</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Limit pesan 5x lebih banyak! Gak usah khawatir kehabisan kuota pas lagi deadline tugas atau ngerjain project.</p>
+<h4 class="font-semibold text-sm mb-1.5">Unlimited Chat</h4>
+<p class="text-[13px] text-ts leading-relaxed">Limit pesan 5x lebih banyak. Gak usah khawatir kehabisan kuota pas deadline.</p>
 </div>
-
-<!-- Feature 3 -->
-<div class="p-6 rounded-2xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800 hover:border-blue-500/30 transition-all group">
-<div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-icons-round text-2xl">palette</span>
+<div class="m3-card m3-ripple m3-reveal m3-reveal-delay-3 p-5 rounded-2xl bg-white border border-border hover:border-accent/30 cursor-default">
+<div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
+<span class="material-icons-round text-xl">palette</span>
 </div>
-<h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">DALL-E 3 Latest</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Bikin gambar ilustrasi buat presentasi, infografis tugas, atau visual project kamu dengan kualitas profesional.</p>
+<h4 class="font-semibold text-sm mb-1.5">DALL-E 3 Latest</h4>
+<p class="text-[13px] text-ts leading-relaxed">Bikin gambar ilustrasi buat presentasi, infografis, atau visual project dengan kualitas profesional.</p>
 </div>
-
-<!-- Feature 4 -->
-<div class="p-6 rounded-2xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800 hover:border-pink-500/30 transition-all group">
-<div class="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-900/30 text-pink-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-icons-round text-2xl">upload_file</span>
+<div class="m3-card m3-ripple m3-reveal m3-reveal-delay-4 p-5 rounded-2xl bg-white border border-border hover:border-accent/30 cursor-default">
+<div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
+<span class="material-icons-round text-xl">upload_file</span>
 </div>
-<h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Analisis File</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Upload PDF, Excel, atau dokumen lain buat dianalisis. Cocok buat ngolah data penelitian atau review jurnal.</p>
+<h4 class="font-semibold text-sm mb-1.5">Analisis File</h4>
+<p class="text-[13px] text-ts leading-relaxed">Upload PDF, Excel, atau dokumen lain buat dianalisis. Cocok buat ngolah data penelitian.</p>
 </div>
-
-<!-- Feature 5 - NEW -->
-<div class="p-6 rounded-2xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800 hover:border-indigo-500/30 transition-all group">
-<div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-icons-round text-2xl">manage_search</span>
+<div class="m3-card m3-ripple m3-reveal m3-reveal-delay-1 p-5 rounded-2xl bg-white border border-border hover:border-accent/30 cursor-default">
+<div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
+<span class="material-icons-round text-xl">manage_search</span>
 </div>
-<h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Deep Research Mode</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Agent AI yang bisa riset mendalam dan browse internet. Cocok buat cari literatur jurnal atau data terbaru untuk skripsi.</p>
+<h4 class="font-semibold text-sm mb-1.5">Deep Research & Agent</h4>
+<p class="text-[13px] text-ts leading-relaxed">Agent AI yang bisa riset mendalam dan browse internet. Cocok buat cari literatur jurnal terbaru.</p>
 </div>
-
-<!-- Feature 6 - NEW -->
-<div class="p-6 rounded-2xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800 hover:border-orange-500/30 transition-all group">
-<div class="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/30 text-orange-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-icons-round text-2xl">history</span>
+<div class="m3-card m3-ripple m3-reveal m3-reveal-delay-2 p-5 rounded-2xl bg-white border border-border hover:border-accent/30 cursor-default">
+<div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
+<span class="material-icons-round text-xl">memory</span>
 </div>
-<h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Expanded Memory</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Context window lebih luas dan memory lebih panjang. AI inget semua percakapan dan detail project kamu lebih lama.</p>
+<h4 class="font-semibold text-sm mb-1.5">Expanded Memory</h4>
+<p class="text-[13px] text-ts leading-relaxed">Context window lebih luas dan memory lebih panjang. AI inget semua detail project kamu lebih lama.</p>
 </div>
-
-<!-- Feature 7 - NEW -->
-<div class="p-6 rounded-2xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800 hover:border-cyan-500/30 transition-all group">
-<div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-icons-round text-2xl">videocam</span>
+<div class="m3-card m3-ripple m3-reveal m3-reveal-delay-3 p-5 rounded-2xl bg-white border border-border hover:border-accent/30 cursor-default">
+<div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
+<span class="material-icons-round text-xl">videocam</span>
 </div>
-<h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Codex & Sora</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Akses Codex Agent untuk coding advanced dan Sora untuk generate video AI. Perfect buat bikin konten presentasi yang epic!</p>
+<h4 class="font-semibold text-sm mb-1.5">Codex & Sora</h4>
+<p class="text-[13px] text-ts leading-relaxed">Akses Codex Agent untuk coding advanced dan Sora untuk generate video AI berkualitas tinggi.</p>
 </div>
-
-<!-- Feature 8 - NEW -->
-<div class="p-6 rounded-2xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800 hover:border-yellow-500/30 transition-all group">
-<div class="w-12 h-12 rounded-xl bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-<span class="material-icons-round text-2xl">new_releases</span>
+<div class="m3-card m3-ripple m3-reveal m3-reveal-delay-4 p-5 rounded-2xl bg-white border border-border hover:border-accent/30 cursor-default">
+<div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
+<span class="material-icons-round text-xl">new_releases</span>
 </div>
-<h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Early Access</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Dapetin akses duluan ke fitur-fitur baru dan beta features sebelum dirilis ke publik. Lo jadi prioritas!</p>
+<h4 class="font-semibold text-sm mb-1.5">Early Access</h4>
+<p class="text-[13px] text-ts leading-relaxed">Dapetin akses duluan ke fitur-fitur baru dan beta features sebelum dirilis ke publik.</p>
 </div>
 </div>
 </div>
 </section>
 
-
-<!-- Why Upgrade Section -->
-<section class="py-20 relative overflow-hidden">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-16">
-<h3 class="text-3xl font-display font-bold text-gray-900 dark:text-white mb-4">Perfect Buat Siapa Aja!</h3>
+<!-- Who Is It For -->
+<section class="py-20">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-14 m3-reveal">
+<h2 class="text-3xl font-bold tracking-tight">Perfect Buat Siapa Aja</h2>
 </div>
-<div class="grid md:grid-cols-3 gap-8">
-<div class="bg-white dark:bg-surface-dark p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center">
-<div class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center mb-6">
-<span class="material-icons-round text-3xl text-gray-700 dark:text-gray-300">school</span>
+<div class="grid md:grid-cols-3 gap-5">
+<div class="m3-card m3-reveal m3-reveal-delay-1 bg-white p-7 rounded-2xl border border-border text-center">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center mx-auto mb-5">
+<span class="material-icons-round text-2xl text-ts">school</span>
 </div>
-<h4 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Mahasiswa Skripsi/TA</h4>
-<p class="text-gray-600 dark:text-gray-400 text-sm">Bantuin riset literatur, bikin kerangka skripsi, analisis data penelitian, sampai proofread bahasa Inggris. Auto lulus on-time!</p>
+<h4 class="font-semibold mb-2">Mahasiswa Skripsi/TA</h4>
+<p class="text-sm text-ts leading-relaxed">Bantuin riset literatur, bikin kerangka skripsi, analisis data penelitian, sampai proofread bahasa Inggris.</p>
 </div>
-<div class="bg-white dark:bg-surface-dark p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center">
-<div class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center mb-6">
-<span class="material-icons-round text-3xl text-gray-700 dark:text-gray-300">code</span>
+<div class="m3-card m3-reveal m3-reveal-delay-2 bg-white p-7 rounded-2xl border border-border text-center">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center mx-auto mb-5">
+<span class="material-icons-round text-2xl text-ts">code</span>
 </div>
-<h4 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Anak Informatika/IT</h4>
-<p class="text-gray-600 dark:text-gray-400 text-sm">Ngoding project lebih cepat, debug error yang bikin pusing, dan bikin design UI/UX atau mockup yang keren buat presentasi.</p>
+<h4 class="font-semibold mb-2">Anak Informatika/IT</h4>
+<p class="text-sm text-ts leading-relaxed">Ngoding project lebih cepat, debug error, dan bikin design UI/UX atau mockup yang keren buat presentasi.</p>
 </div>
-<div class="bg-white dark:bg-surface-dark p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center">
-<div class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center mb-6">
-<span class="material-icons-round text-3xl text-gray-700 dark:text-gray-300">edit_note</span>
+<div class="m3-card m3-reveal m3-reveal-delay-3 bg-white p-7 rounded-2xl border border-border text-center">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center mx-auto mb-5">
+<span class="material-icons-round text-2xl text-ts">edit_note</span>
 </div>
-<h4 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Semua Jurusan</h4>
-<p class="text-gray-600 dark:text-gray-400 text-sm">Bikin essay, rangkum materi kuliah, translate jurnal, atau brainstorm ide project. Dari Teknik sampe Sosial works!</p>
+<h4 class="font-semibold mb-2">Semua Jurusan</h4>
+<p class="text-sm text-ts leading-relaxed">Bikin essay, rangkum materi kuliah, translate jurnal, atau brainstorm ide project lintas bidang.</p>
 </div>
 </div>
 </div>
 </section>
 
-<!-- Comparison Table -->
-<section class="py-20 bg-background-light dark:bg-background-dark" id="comparison">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-12">
-<h3 class="text-3xl font-display font-bold text-gray-900 dark:text-white">Apa Bedanya dengan Versi Gratisan?</h3>
+<!-- Comparison -->
+<section class="py-20 bg-surface border-y border-border" id="comparison">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12 m3-reveal">
+<h2 class="text-3xl font-bold tracking-tight">Apa Bedanya dengan Versi Gratisan?</h2>
 </div>
-<div class="overflow-x-auto pb-4">
-<div class="min-w-[800px] bg-white dark:bg-surface-dark rounded-3xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden">
+<div class="overflow-x-auto pb-4 m3-reveal m3-reveal-delay-1">
+<div class="min-w-[700px] bg-white rounded-2xl border border-border overflow-hidden">
 <div class="grid grid-cols-4 text-center">
-<div class="p-6 text-left border-b border-gray-100 dark:border-gray-700 font-semibold text-gray-500">Fitur</div>
-<div class="p-6 border-b border-gray-100 dark:border-gray-700 font-bold text-gray-900 dark:text-white text-lg">Free</div>
-<div class="p-6 border-b border-gray-100 dark:border-gray-700 font-bold text-gray-900 dark:text-white text-lg">Go</div>
-<div class="p-6 border-b border-gray-100 dark:border-gray-700 bg-primary/5 dark:bg-primary/10 relative">
-<div class="absolute top-0 inset-x-0 h-1 bg-primary"></div>
-<span class="font-bold text-primary text-xl">Plus</span>
-<div class="text-xs text-gray-500 mt-1 font-normal">Rekomendasi!</div>
-</div>
-<div class="p-4 px-6 text-left text-sm text-gray-600 dark:text-gray-300 border-b border-gray-50 dark:border-gray-800 flex items-center">Model AI</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">GPT-5.2 Instant<br/><span class="text-xs text-gray-400">(Terbatas)</span></div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">GPT-5.2 Instant</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 bg-primary/5 dark:bg-primary/10">
-<div class="flex items-center justify-center gap-2">
-<span class="material-icons-round text-secondary text-lg">check_circle</span>
-<span class="font-medium text-primary text-sm">Thinking + Instant</span>
+<div class="p-4 px-5 text-left border-b border-border text-sm font-medium text-ts">Fitur</div>
+<div class="p-4 border-b border-border text-sm font-semibold">Free</div>
+<div class="p-4 border-b border-border text-sm font-semibold">Go</div>
+<div class="p-4 border-b border-border bg-accent/5 relative">
+<div class="absolute top-0 inset-x-0 h-0.5 bg-accent"></div>
+<div class="flex flex-col items-center gap-1.5">
+<span class="text-sm font-semibold text-accent">Plus</span>
+<span class="m3-badge inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-accent text-white tracking-wide">Rekomendasi</span>
 </div>
 </div>
-<div class="p-4 px-6 text-left text-sm text-gray-600 dark:text-gray-300 border-b border-gray-50 dark:border-gray-800 flex items-center">Limit Pesan</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">10 pesan/5 jam</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">10x lebih banyak</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 bg-primary/5 dark:bg-primary/10">
-<div class="flex items-center justify-center gap-2">
-<span class="material-icons-round text-secondary text-lg">check_circle</span>
-<span class="font-medium text-secondary text-sm">Unlimited</span>
-</div>
-</div>
-<div class="p-4 px-6 text-left text-sm text-gray-600 dark:text-gray-300 border-b border-gray-50 dark:border-gray-800 flex items-center">Thinking Mode</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-gray-300"><span class="material-icons-round text-sm">close</span></div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-gray-300"><span class="material-icons-round text-sm">close</span></div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 bg-primary/5 dark:bg-primary/10">
-<div class="flex items-center justify-center gap-2">
-<span class="material-icons-round text-secondary text-lg">check_circle</span>
-<span class="font-medium text-secondary text-sm">2 Level Mode</span>
-</div>
-</div>
-<div class="p-4 px-6 text-left text-sm text-gray-600 dark:text-gray-300 border-b border-gray-50 dark:border-gray-800 flex items-center">Bikin Gambar (DALL-E)</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">Sangat Terbatas</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">10x lebih banyak</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 bg-primary/5 dark:bg-primary/10">
-<div class="flex items-center justify-center gap-2">
-<span class="material-icons-round text-secondary text-lg">check_circle</span>
-<span class="font-medium text-secondary text-sm">Unlimited</span>
-</div>
-</div>
-<div class="p-4 px-6 text-left text-sm text-gray-600 dark:text-gray-300 border-b border-gray-50 dark:border-gray-800 flex items-center">Upload File Docs</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">Terbatas</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">10x lebih banyak</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 bg-primary/5 dark:bg-primary/10">
-<div class="flex items-center justify-center gap-2">
-<span class="material-icons-round text-secondary text-lg">check_circle</span>
-<span class="font-medium text-secondary text-sm">Unlimited</span>
-</div>
-</div>
-<div class="p-4 px-6 text-left text-sm text-gray-600 dark:text-gray-300 border-b border-gray-50 dark:border-gray-800 flex items-center">Advanced Voice Mode</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">15 menit/hari</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-sm text-gray-500">Terbatas</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 bg-primary/5 dark:bg-primary/10">
-<div class="flex items-center justify-center gap-2">
-<span class="material-icons-round text-secondary text-lg">check_circle</span>
-<span class="font-medium text-secondary text-sm">Unlimited</span>
-</div>
-</div>
-<div class="p-4 px-6 text-left text-sm text-gray-600 dark:text-gray-300 border-b border-gray-50 dark:border-gray-800 flex items-center">Custom GPTs</div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-gray-300"><span class="material-icons-round text-sm">close</span></div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 text-gray-300"><span class="material-icons-round text-sm">close</span></div>
-<div class="p-4 border-b border-gray-50 dark:border-gray-800 bg-primary/5 dark:bg-primary/10">
-<div class="flex items-center justify-center gap-2">
-<span class="material-icons-round text-secondary text-lg">check_circle</span>
-<span class="font-medium text-secondary text-sm">Support</span>
-</div>
-</div>
-<div class="p-4 px-6 text-left text-sm text-gray-600 dark:text-gray-300 flex items-center">Prioritas saat Jam Sibuk</div>
-<div class="p-4 text-gray-300"><span class="material-icons-round text-sm">close</span></div>
-<div class="p-4 text-gray-300"><span class="material-icons-round text-sm">close</span></div>
-<div class="p-4 bg-primary/5 dark:bg-primary/10">
-<div class="flex items-center justify-center">
-<span class="material-icons-round text-secondary text-lg">check_circle</span>
-</div>
-</div>
+
+<div class="p-3.5 px-5 text-left text-[13px] text-ts border-b border-gray-50 flex items-center">Model AI</div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">GPT-5.2 Instant<br/><span class="text-[11px]">(Terbatas)</span></div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">GPT-5.2 Instant</div>
+<div class="p-3.5 border-b border-gray-50 bg-accent/5"><span class="text-[13px] font-medium text-accent">Thinking + Instant</span></div>
+
+<div class="p-3.5 px-5 text-left text-[13px] text-ts border-b border-gray-50 flex items-center">Limit Pesan</div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">10 pesan/5 jam</div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">10x lebih banyak</div>
+<div class="p-3.5 border-b border-gray-50 bg-accent/5"><span class="text-[13px] font-medium text-accent">Unlimited</span></div>
+
+<div class="p-3.5 px-5 text-left text-[13px] text-ts border-b border-gray-50 flex items-center">Thinking Mode</div>
+<div class="p-3.5 border-b border-gray-50 text-tt"><span class="material-icons-round text-[15px]">close</span></div>
+<div class="p-3.5 border-b border-gray-50 text-tt"><span class="material-icons-round text-[15px]">close</span></div>
+<div class="p-3.5 border-b border-gray-50 bg-accent/5"><span class="text-[13px] font-medium text-accent">2 Level Mode</span></div>
+
+<div class="p-3.5 px-5 text-left text-[13px] text-ts border-b border-gray-50 flex items-center">Bikin Gambar (DALL-E)</div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">Sangat Terbatas</div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">10x lebih banyak</div>
+<div class="p-3.5 border-b border-gray-50 bg-accent/5"><span class="text-[13px] font-medium text-accent">Unlimited</span></div>
+
+<div class="p-3.5 px-5 text-left text-[13px] text-ts border-b border-gray-50 flex items-center">Upload File Docs</div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">Terbatas</div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">10x lebih banyak</div>
+<div class="p-3.5 border-b border-gray-50 bg-accent/5"><span class="text-[13px] font-medium text-accent">Unlimited</span></div>
+
+<div class="p-3.5 px-5 text-left text-[13px] text-ts border-b border-gray-50 flex items-center">Advanced Voice Mode</div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">15 menit/hari</div>
+<div class="p-3.5 border-b border-gray-50 text-[13px] text-tt">Terbatas</div>
+<div class="p-3.5 border-b border-gray-50 bg-accent/5"><span class="text-[13px] font-medium text-accent">Unlimited</span></div>
+
+<div class="p-3.5 px-5 text-left text-[13px] text-ts border-b border-gray-50 flex items-center">Custom GPTs</div>
+<div class="p-3.5 border-b border-gray-50 text-tt"><span class="material-icons-round text-[15px]">close</span></div>
+<div class="p-3.5 border-b border-gray-50 text-tt"><span class="material-icons-round text-[15px]">close</span></div>
+<div class="p-3.5 border-b border-gray-50 bg-accent/5"><span class="text-[13px] font-medium text-accent">Support</span></div>
+
+<div class="p-3.5 px-5 text-left text-[13px] text-ts flex items-center">Prioritas Jam Sibuk</div>
+<div class="p-3.5 text-tt"><span class="material-icons-round text-[15px]">close</span></div>
+<div class="p-3.5 text-tt"><span class="material-icons-round text-[15px]">close</span></div>
+<div class="p-3.5 bg-accent/5 text-accent"><span class="material-icons-round text-lg">check</span></div>
 </div>
 </div>
 </div>
 </div>
 </section>
 
-<!-- Pricing Section -->
-<section class="py-24 relative" id="pricing">
-<div class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none"></div>
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="bg-white dark:bg-surface-dark rounded-3xl shadow-glow-lg overflow-hidden border border-primary/20 flex flex-col md:flex-row">
-<!-- Pricing Info -->
-<div class="p-10 md:w-3/5 flex flex-col justify-center">
-<h2 class="text-3xl font-display font-bold text-gray-900 dark:text-white mb-2">Harga Murah Meriah</h2>
-<p class="text-gray-500 dark:text-gray-400 mb-8">Lebih murah dari beli seblak tiap hari, tapi manfaatnya jauh lebih ngaruh ke IPK kamu! 💯</p>
-<div class="space-y-4 mb-6">
-<div class="flex items-center gap-3">
-<div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center">
-<span class="material-icons-round text-sm text-secondary">check</span>
-</div>
-<span class="text-gray-700 dark:text-gray-200">Akses Thinking, Instant, Research Mode</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center">
-<span class="material-icons-round text-sm text-secondary">check</span>
-</div>
-<span class="text-gray-700 dark:text-gray-200">Chat Unlimited, No Waiting</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center">
-<span class="material-icons-round text-sm text-secondary">check</span>
-</div>
-<span class="text-gray-700 dark:text-gray-200">Generate gambar Unlimited</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center">
-<span class="material-icons-round text-sm text-secondary">check</span>
-</div>
-<span class="text-gray-700 dark:text-gray-200">Upload File Docs Unlimited</span>
-</div>
-</div>
-<!-- Bonus Badge -->
-<div class="p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border-2 border-dashed border-blue-300 dark:border-blue-700">
-<div class="flex items-start gap-3">
-<span class="material-icons-round text-blue-600 dark:text-blue-400 mt-0.5">card_giftcard</span>
-<div>
-<h4 class="font-bold text-blue-900 dark:text-blue-100 text-sm mb-1">BONUS EKSKLUSIF!</h4>
-<p class="text-xs text-blue-700 dark:text-blue-300">Link Invite <strong>Canva Business 1 Bulan</strong> gratis untuk desain presentasi profesional!</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Price Action -->
-<div class="p-10 md:w-2/5 bg-gray-50 dark:bg-gray-900 border-l border-gray-100 dark:border-gray-800 flex flex-col justify-center items-center text-center">
-<span class="text-gray-500 text-sm font-medium mb-2 uppercase tracking-wide">Promo Mahasiswa</span>
-<div class="flex items-baseline mb-6">
-<span class="text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">Rp 20K</span>
-<span class="text-gray-500 ml-1">/bulan</span>
-</div>
-<a href="https://wa.me/6281234228779?text=Halo%2C%20saya%20mau%20beli%20ChatGPT%20Plus%20GPT-5.2%20yang%2020K%2Fbulan.%20Bisa%20minta%20info%20cara%20pembayarannya%3F" target="_blank" class="w-full py-4 px-6 bg-primary hover:bg-primary-hover text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 mb-4 inline-block">
-                            Beli Sekarang
-                        </a>
-<p class="text-xs text-gray-400">Garansi 7 hari uang kembali jika tidak puas. Pembayaran mudah via QRIS/Transfer.</p>
-</div>
-</div>
-</div>
-</section>
-
-<!-- FAQ Section -->
-<section class="py-20 bg-white dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800" id="faq">
+<!-- Pricing -->
+<section class="py-24" id="pricing">
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-12">
-<h3 class="text-3xl font-display font-bold text-gray-900 dark:text-white">Yang Sering Ditanyain</h3>
+<div class="m3-reveal bg-white rounded-2xl border border-border overflow-hidden shadow-[0_2px_24px_rgba(0,0,0,0.05)] flex flex-col md:flex-row">
+<div class="p-8 md:p-10 md:w-3/5">
+<h2 class="text-2xl font-bold mb-1.5">Harga Murah Meriah</h2>
+<p class="text-ts text-sm mb-7">Lebih murah dari beli seblak tiap hari, tapi manfaatnya jauh lebih ngaruh ke IPK kamu.</p>
+<div class="space-y-3 mb-6">
+<div class="flex items-center gap-2.5">
+<span class="material-icons-round text-accent text-lg">check</span>
+<span class="text-sm">Akses Thinking, Instant, Research Mode</span>
 </div>
-<div class="space-y-4">
-<!-- FAQ Item 1 -->
-<details class="group bg-background-light dark:bg-background-dark rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-<summary class="flex items-center justify-between font-medium text-gray-900 dark:text-white">
-                            Ini akun private atau share bareng orang lain?
-                            <span class="transition group-open:rotate-180">
-<span class="material-icons-round text-gray-400">expand_more</span>
-</span>
+<div class="flex items-center gap-2.5">
+<span class="material-icons-round text-accent text-lg">check</span>
+<span class="text-sm">Chat Unlimited, No Waiting</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="material-icons-round text-accent text-lg">check</span>
+<span class="text-sm">Generate gambar Unlimited</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="material-icons-round text-accent text-lg">check</span>
+<span class="text-sm">Upload File Docs Unlimited</span>
+</div>
+</div>
+<div class="p-3.5 bg-accent/5 border border-accent/15 rounded-xl flex items-start gap-2.5">
+<span class="material-icons-round text-accent text-lg mt-0.5">card_giftcard</span>
+<div>
+<p class="text-xs font-semibold text-tp mb-0.5">Bonus Eksklusif</p>
+<p class="text-[11px] text-ts">Link Invite <strong>Canva Business 1 Bulan</strong> gratis untuk desain presentasi profesional.</p>
+</div>
+</div>
+</div>
+<div class="p-8 md:p-10 md:w-2/5 bg-surface border-t md:border-t-0 md:border-l border-border flex flex-col justify-center items-center text-center">
+<span class="text-tt text-xs font-medium uppercase tracking-wider mb-2">Promo Mahasiswa</span>
+<div class="flex items-baseline mb-6">
+<span class="text-4xl font-bold tracking-tight">Rp 20K</span>
+<span class="text-tt ml-1 text-sm">/bulan</span>
+</div>
+<a href="https://wa.me/6281234228779?text=Halo%2C%20saya%20mau%20beli%20ChatGPT%20Plus%20GPT-5.2%20yang%2020K%2Fbulan.%20Bisa%20minta%20info%20cara%20pembayarannya%3F" target="_blank" class="m3-btn w-full py-3 bg-accent hover:bg-accent-hover text-white rounded-full font-medium transition-colors mb-3 inline-block text-center">Beli Sekarang</a>
+<p class="text-[11px] text-tt">Garansi 7 hari uang kembali. Pembayaran via QRIS/Transfer.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="py-20 bg-surface border-y border-border" id="faq">
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12 m3-reveal">
+<h2 class="text-3xl font-bold tracking-tight">Yang Sering Ditanyain</h2>
+</div>
+<div class="space-y-2">
+<details class="m3-reveal m3-reveal-delay-1 group bg-white rounded-xl border border-border [&_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer text-sm font-medium hover:bg-surface/50 rounded-xl transition-colors duration-200">
+Ini akun private atau share bareng orang lain?
+<span class="material-icons-round text-tt text-xl transition-transform duration-300 group-open:rotate-180">expand_more</span>
 </summary>
-<p class="mt-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                            Ini akun <strong>100% PRIVATE</strong> khusus buat kamu! Gak ada sharing dengan orang lain sama sekali. Setelah beli, akun langsung jadi milik kamu sepenuhnya dan bisa dipakai kapan aja tanpa gangguan. Username dan password full akses cuma kamu yang tahu. 🔒
-                        </p>
+<p class="px-4 pb-4 text-[13px] text-ts leading-relaxed">Ini akun <strong>100% PRIVATE</strong> khusus buat kamu. Gak ada sharing dengan orang lain sama sekali. Setelah beli, akun langsung jadi milik kamu sepenuhnya dan bisa dipakai kapan aja tanpa gangguan.</p>
 </details>
-<!-- FAQ Item 2 -->
-<details class="group bg-background-light dark:bg-background-dark rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-<summary class="flex items-center justify-between font-medium text-gray-900 dark:text-white">
-                            Berapa lama dikirimnya setelah bayar?
-                            <span class="transition group-open:rotate-180">
-<span class="material-icons-round text-gray-400">expand_more</span>
-</span>
+<details class="m3-reveal m3-reveal-delay-2 group bg-white rounded-xl border border-border [&_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer text-sm font-medium hover:bg-surface/50 rounded-xl transition-colors duration-200">
+Berapa lama dikirimnya setelah bayar?
+<span class="material-icons-round text-tt text-xl transition-transform duration-300 group-open:rotate-180">expand_more</span>
 </summary>
-<p class="mt-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                            <strong>Super cepat!</strong> Akun akan dikirim otomatis ke WhatsApp kamu dalam waktu <strong>5-10 menit</strong> setelah pembayaran terkonfirmasi oleh CS.
-                        </p>
+<p class="px-4 pb-4 text-[13px] text-ts leading-relaxed">Akun akan dikirim ke WhatsApp kamu dalam waktu <strong>5-10 menit</strong> setelah pembayaran terkonfirmasi oleh CS.</p>
 </details>
-<!-- FAQ Item 3 -->
-<details class="group bg-background-light dark:bg-background-dark rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-<summary class="flex items-center justify-between font-medium text-gray-900 dark:text-white">
-                            Gimana kalau akunnya tiba-tiba error atau ga bisa login?
-                            <span class="transition group-open:rotate-180">
-<span class="material-icons-round text-gray-400">expand_more</span>
-</span>
+<details class="m3-reveal m3-reveal-delay-3 group bg-white rounded-xl border border-border [&_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer text-sm font-medium hover:bg-surface/50 rounded-xl transition-colors duration-200">
+Gimana kalau akunnya tiba-tiba error atau ga bisa login?
+<span class="material-icons-round text-tt text-xl transition-transform duration-300 group-open:rotate-180">expand_more</span>
 </summary>
-<p class="mt-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                            Tenang! Ada <strong>garansi full 30 hari</strong>. Kalau akun bermasalah (ga bisa login/fitur plus hilang), langsung hubungi CS dan akan diganti akun baru <strong>gratis</strong>.
-                        </p>
+<p class="px-4 pb-4 text-[13px] text-ts leading-relaxed">Ada <strong>garansi full 30 hari</strong>. Kalau akun bermasalah (ga bisa login/fitur plus hilang), langsung hubungi CS dan akan diganti akun baru <strong>gratis</strong>.</p>
 </details>
-<!-- FAQ Item 4 -->
-<details class="group bg-background-light dark:bg-background-dark rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-<summary class="flex items-center justify-between font-medium text-gray-900 dark:text-white">
-                            Apa sih bedanya Thinking Mode sama yang biasa?
-                            <span class="transition group-open:rotate-180">
-<span class="material-icons-round text-gray-400">expand_more</span>
-</span>
+<details class="m3-reveal m3-reveal-delay-4 group bg-white rounded-xl border border-border [&_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer text-sm font-medium hover:bg-surface/50 rounded-xl transition-colors duration-200">
+Apa sih bedanya Thinking Mode sama yang biasa?
+<span class="material-icons-round text-tt text-xl transition-transform duration-300 group-open:rotate-180">expand_more</span>
 </summary>
-<p class="mt-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                            Thinking Mode itu AI-nya <strong>"mikir dulu"</strong> sebelum jawab. Jadi buat masalah kompleks kayak analisis data penelitian, solve problem matematika, atau riset skripsi, hasilnya jauh lebih <strong>akurat dan detail</strong> dibanding mode biasa.
-                        </p>
+<p class="px-4 pb-4 text-[13px] text-ts leading-relaxed">Thinking Mode itu AI-nya <strong>mikir dulu</strong> sebelum jawab. Jadi buat masalah kompleks kayak analisis data penelitian atau riset skripsi, hasilnya jauh lebih <strong>akurat dan detail</strong>.</p>
 </details>
-<!-- FAQ Item 5 -->
-<details class="group bg-background-light dark:bg-background-dark rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-<summary class="flex items-center justify-between font-medium text-gray-900 dark:text-white">
-                            Bisa order untuk beberapa bulan sekaligus?
-                            <span class="transition group-open:rotate-180">
-<span class="material-icons-round text-gray-400">expand_more</span>
-</span>
+<details class="m3-reveal m3-reveal-delay-1 group bg-white rounded-xl border border-border [&_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer text-sm font-medium hover:bg-surface/50 rounded-xl transition-colors duration-200">
+Bisa order untuk beberapa bulan sekaligus?
+<span class="material-icons-round text-tt text-xl transition-transform duration-300 group-open:rotate-180">expand_more</span>
 </summary>
-<p class="mt-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                            Untuk saat ini <strong>hanya bisa order 1 bulan</strong> dulu. Setelah masa aktif habis, kamu bisa perpanjang lagi dengan hubungi CS. Sistem ini untuk memastikan kualitas layanan tetap optimal.
-                        </p>
+<p class="px-4 pb-4 text-[13px] text-ts leading-relaxed">Untuk saat ini <strong>hanya bisa order 1 bulan</strong>. Setelah masa aktif habis, kamu bisa perpanjang lagi dengan hubungi CS.</p>
 </details>
-<!-- FAQ Item 6 -->
-<details class="group bg-background-light dark:bg-background-dark rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-<summary class="flex items-center justify-between font-medium text-gray-900 dark:text-white">
-                            Bonus Canva Business-nya gimana cara pakainya?
-                            <span class="transition group-open:rotate-180">
-<span class="material-icons-round text-gray-400">expand_more</span>
-</span>
+<details class="m3-reveal m3-reveal-delay-2 group bg-white rounded-xl border border-border [&_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer text-sm font-medium hover:bg-surface/50 rounded-xl transition-colors duration-200">
+Bonus Canva Business-nya gimana cara pakainya?
+<span class="material-icons-round text-tt text-xl transition-transform duration-300 group-open:rotate-180">expand_more</span>
 </summary>
-<p class="mt-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                            Setelah transaksi selesai, kamu akan dapat <strong>link invite Canva Business</strong> yang bisa langsung dipakai. Gratis 1 bulan full akses untuk bikin desain presentasi, poster, infografis, dan banyak lagi dengan template premium!
-                        </p>
+<p class="px-4 pb-4 text-[13px] text-ts leading-relaxed">Setelah transaksi selesai, kamu akan dapat <strong>link invite Canva Business</strong> yang bisa langsung dipakai. Gratis 1 bulan full akses untuk bikin desain presentasi, poster, infografis, dan banyak lagi.</p>
 </details>
 </div>
 </div>
 </section>
 
-<!-- Terms & Conditions Section -->
-<section class="py-20 bg-background-light dark:bg-background-dark" id="terms">
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="bg-white dark:bg-surface-dark rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 md:p-10">
-<div class="flex items-start gap-4 mb-6">
-<div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0">
-<span class="material-icons-round text-2xl">info</span>
+<!-- Terms -->
+<section class="py-20" id="terms">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="m3-reveal bg-white rounded-2xl border border-border p-7 md:p-10">
+<div class="flex items-start gap-3 mb-6">
+<div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
+<span class="material-icons-round text-xl">gavel</span>
 </div>
 <div>
-<h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-2">Syarat & Ketentuan</h3>
-<p class="text-gray-600 dark:text-gray-400 text-sm">Wajib dibaca sebelum melakukan pembelian. Dengan membeli, kamu otomatis menyetujui ketentuan berikut:</p>
+<h3 class="text-xl font-bold mb-1">Syarat & Ketentuan</h3>
+<p class="text-ts text-[13px]">Wajib dibaca sebelum melakukan pembelian. Dengan membeli, kamu otomatis menyetujui ketentuan berikut:</p>
 </div>
 </div>
-
-<div class="space-y-4">
-<!-- Term 1 -->
-<div class="flex gap-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-<div class="flex-shrink-0">
-<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-<span class="font-bold text-primary text-sm">1</span>
-</div>
+<div class="space-y-3">
+<div class="flex gap-3 p-3.5 bg-surface rounded-xl">
+<div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="font-bold text-accent text-xs">1</span>
 </div>
 <div>
-<h4 class="font-semibold text-gray-900 dark:text-white mb-1 text-sm">Order Hanya 1 Bulan</h4>
-<p class="text-gray-600 dark:text-gray-400 text-sm">Pembelian <strong>hanya bisa untuk 1 bulan</strong>, tidak bisa order beberapa bulan sekaligus. Perpanjangan dilakukan setiap bulan.</p>
+<h4 class="font-semibold text-[13px] mb-0.5">Order Hanya 1 Bulan</h4>
+<p class="text-ts text-[12px] leading-relaxed">Pembelian <strong>hanya bisa untuk 1 bulan</strong>, tidak bisa order beberapa bulan sekaligus.</p>
 </div>
 </div>
-
-<!-- Term 2 -->
-<div class="flex gap-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-<div class="flex-shrink-0">
-<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-<span class="font-bold text-primary text-sm">2</span>
-</div>
+<div class="flex gap-3 p-3.5 bg-surface rounded-xl">
+<div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="font-bold text-accent text-xs">2</span>
 </div>
 <div>
-<h4 class="font-semibold text-gray-900 dark:text-white mb-1 text-sm">Login Dengan Akun dari CS</h4>
-<p class="text-gray-600 dark:text-gray-400 text-sm">Wajib <strong>login menggunakan akun yang diberikan oleh CS</strong>. Tidak bisa menggunakan akun pribadi/email sendiri untuk aktivasi.</p>
+<h4 class="font-semibold text-[13px] mb-0.5">Login Dengan Akun dari CS</h4>
+<p class="text-ts text-[12px] leading-relaxed">Wajib <strong>login menggunakan akun yang diberikan oleh CS</strong>. Tidak bisa pakai akun pribadi.</p>
 </div>
 </div>
-
-<!-- Term 3 -->
-<div class="flex gap-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-<div class="flex-shrink-0">
-<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-<span class="font-bold text-primary text-sm">3</span>
-</div>
+<div class="flex gap-3 p-3.5 bg-surface rounded-xl">
+<div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="font-bold text-accent text-xs">3</span>
 </div>
 <div>
-<h4 class="font-semibold text-gray-900 dark:text-white mb-1 text-sm">Kirim Screenshot Konfirmasi</h4>
-<p class="text-gray-600 dark:text-gray-400 text-sm"><strong>Wajib kirim screenshot setelah login</strong> ke CS dalam waktu <strong>maksimal 5 jam</strong> setelah terima akun. Ini untuk verifikasi dan validasi akun.</p>
+<h4 class="font-semibold text-[13px] mb-0.5">Kirim Screenshot Konfirmasi</h4>
+<p class="text-ts text-[12px] leading-relaxed"><strong>Wajib kirim screenshot setelah login</strong> ke CS dalam waktu <strong>maksimal 5 jam</strong> setelah terima akun.</p>
 </div>
 </div>
-
-<!-- Term 4 -->
-<div class="flex gap-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-<div class="flex-shrink-0">
-<div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-<span class="material-icons-round text-red-600 dark:text-red-400 text-sm">block</span>
-</div>
+<div class="flex gap-3 p-3.5 bg-red-50 rounded-xl border border-red-100">
+<div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-icons-round text-red-500 text-xs">block</span>
 </div>
 <div>
-<h4 class="font-semibold text-gray-900 dark:text-white mb-1 text-sm">Jangan Ubah Setting Berlangganan</h4>
-<p class="text-gray-600 dark:text-gray-400 text-sm"><strong>Dilarang keras</strong> otak-atik bagian <strong>setting/payment/subscription</strong> di akun. Pelanggaran = akun langsung dinonaktifkan tanpa refund.</p>
+<h4 class="font-semibold text-[13px] mb-0.5">Jangan Ubah Setting Berlangganan</h4>
+<p class="text-ts text-[12px] leading-relaxed"><strong>Dilarang keras</strong> otak-atik bagian setting/payment/subscription. Pelanggaran = akun dinonaktifkan tanpa refund.</p>
 </div>
 </div>
-
-<!-- Term 5 -->
-<div class="flex gap-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-<div class="flex-shrink-0">
-<div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-<span class="material-icons-round text-red-600 dark:text-red-400 text-sm">block</span>
-</div>
+<div class="flex gap-3 p-3.5 bg-red-50 rounded-xl border border-red-100">
+<div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-icons-round text-red-500 text-xs">block</span>
 </div>
 <div>
-<h4 class="font-semibold text-gray-900 dark:text-white mb-1 text-sm">Dilarang Share atau Jual Akun</h4>
-<p class="text-gray-600 dark:text-gray-400 text-sm"><strong>Dilarang keras</strong> jual atau share <strong>email & password</strong> ke orang lain. Akun 100% untuk penggunaan pribadi. Pelanggaran = akun suspended permanent.</p>
+<h4 class="font-semibold text-[13px] mb-0.5">Dilarang Share atau Jual Akun</h4>
+<p class="text-ts text-[12px] leading-relaxed"><strong>Dilarang keras</strong> jual atau share email & password ke orang lain. Pelanggaran = akun suspended permanent.</p>
 </div>
 </div>
 </div>
-
-<div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-<p class="text-xs text-blue-800 dark:text-blue-200 leading-relaxed">
-<strong>⚠️ Penting:</strong> Dengan melakukan pembayaran, kamu dianggap telah membaca, memahami, dan menyetujui seluruh syarat & ketentuan di atas. Pelanggaran akan mengakibatkan akun dinonaktifkan tanpa refund.
-                </p>
+<div class="mt-5 p-3.5 bg-surface border border-border rounded-xl">
+<p class="text-[11px] text-ts leading-relaxed"><strong>Penting:</strong> Dengan melakukan pembayaran, kamu dianggap telah membaca, memahami, dan menyetujui seluruh syarat & ketentuan di atas.</p>
 </div>
 </div>
 </div>
 </section>
 </main>
+
+<script>
+// === SHINE REVEAL LOOP — huruf muncul saat shine nyapu, lalu fade out & ulang ===
+document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('hero-heading');
+    const text = el.textContent.trim();
+    el.textContent = '';
+
+    const sweepDuration = 2.5;
+    const animDuration = 5;
+    const shineEndPercent = 0.24;
+    const holdTime = 2000;
+    const fadeOutTime = 800;
+    const pauseTime = 600;
+    const spans = [];
+    let totalChars = 0;
+
+    text.split('').forEach(char => {
+        if (char === ' ') {
+            el.appendChild(document.createTextNode(' '));
+        } else {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.className = 'shine-letter';
+            el.appendChild(span);
+            spans.push(span);
+            totalChars++;
+        }
+    });
+
+    function runShineLoop() {
+        // 1. Reset — hapus animasi, huruf balik ke .shine-letter { opacity: 0 }
+        el.style.transition = 'none';
+        el.style.opacity = '1';
+        spans.forEach(span => {
+            span.style.animation = 'none';
+        });
+
+        // 2. Force reflow biar browser acknowledge reset
+        void el.offsetHeight;
+
+        // 3. Start shine — delay MASUK di shorthand, fill-mode: both
+        spans.forEach((span, i) => {
+            const delay = (i / totalChars) * sweepDuration;
+            span.style.animation = `letter-shine-reveal ${animDuration}s ease-in-out ${delay}s both`;
+        });
+
+        // 4. Hitung kapan huruf terakhir selesai shine
+        const lastDelay = ((totalChars - 1) / totalChars) * sweepDuration;
+        const visualEnd = (lastDelay + animDuration * shineEndPercent) * 1000;
+
+        // 5. Hold → fade out → loop
+        setTimeout(() => {
+            el.style.transition = `opacity ${fadeOutTime}ms ease-out`;
+            el.style.opacity = '0';
+
+            setTimeout(() => {
+                runShineLoop();
+            }, fadeOutTime + pauseTime);
+        }, visualEnd + holdTime);
+    }
+
+    runShineLoop();
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.m3-reveal').forEach(el => observer.observe(el));
+
+// Ripple
+document.querySelectorAll('.m3-ripple').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty('--x', ((e.clientX - rect.left) / rect.width * 100) + '%');
+        el.style.setProperty('--y', ((e.clientY - rect.top) / rect.height * 100) + '%');
+    });
+});
+
+// Model Selector
+const modelBtn = document.getElementById('modelBtn');
+const modelLabel = document.getElementById('modelLabel');
+const modelDropdown = document.getElementById('modelDropdown');
+const dropdownArrow = document.getElementById('dropdownArrow');
+const modelOptions = document.querySelectorAll('.model-option');
+let dropdownOpen = false;
+
+modelBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdownOpen = !dropdownOpen;
+    modelDropdown.classList.toggle('hidden');
+    dropdownArrow.style.transform = dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+});
+
+modelOptions.forEach(option => {
+    option.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modelOptions.forEach(opt => {
+            opt.classList.remove('active');
+            opt.querySelector('.model-check').style.opacity = '0';
+        });
+        option.classList.add('active');
+        option.querySelector('.model-check').style.opacity = '1';
+        modelLabel.textContent = option.getAttribute('data-label');
+        modelDropdown.classList.add('hidden');
+        dropdownOpen = false;
+        dropdownArrow.style.transform = 'rotate(0deg)';
+    });
+});
+
+document.addEventListener('click', () => {
+    modelDropdown.classList.add('hidden');
+    dropdownOpen = false;
+    dropdownArrow.style.transform = 'rotate(0deg)';
+});
+modelDropdown.addEventListener('click', (e) => e.stopPropagation());
+</script>
+
 </body></html>
