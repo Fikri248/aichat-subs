@@ -31,7 +31,7 @@ tailwind.config = {
 body { font-family: 'Inter', system-ui, sans-serif; scroll-behavior: smooth; }
 .glass-nav { background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
 
-/* === PER-LETTER SHINE REVEAL — huruf muncul saat shine nyapu === */
+/* === PER-LETTER SHINE REVEAL === */
 @keyframes letter-shine-reveal {
     0%   { opacity: 0; color: #0d0d0d; }
     12%  { opacity: 1; color: #b0b0b0; }
@@ -41,6 +41,22 @@ body { font-family: 'Inter', system-ui, sans-serif; scroll-behavior: smooth; }
 .shine-letter {
     opacity: 0;
     color: #0d0d0d;
+}
+
+/* === Model Label Text Cycling === */
+#modelLabel {
+    display: inline-block;
+    transition: opacity 0.4s cubic-bezier(0.2, 0, 0, 1),
+                transform 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+#modelLabel.slide-out {
+    opacity: 0;
+    transform: translateY(-6px);
+}
+#modelLabel.slide-in-ready {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: none;
 }
 
 /* === Material You Badge === */
@@ -88,6 +104,7 @@ details[open] summary ~ * { animation: m3-fade-in 0.3s cubic-bezier(0.2, 0, 0, 1
 @keyframes dropdown-in { from { opacity: 0; transform: translateY(-4px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .dropdown-menu { animation: dropdown-in 0.2s cubic-bezier(0.2, 0, 0, 1); }
 </style>
+
 </head>
 <body class="bg-white text-tp antialiased">
 
@@ -571,7 +588,7 @@ Bonus Canva Business-nya gimana cara pakainya?
 </main>
 
 <script>
-// === SHINE REVEAL LOOP — huruf muncul saat shine nyapu, lalu fade out & ulang ===
+// === SHINE REVEAL LOOP ===
 document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById('hero-heading');
     const text = el.textContent.trim();
@@ -600,34 +617,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function runShineLoop() {
-        // 1. Reset — hapus animasi, huruf balik ke .shine-letter { opacity: 0 }
         el.style.transition = 'none';
         el.style.opacity = '1';
-        spans.forEach(span => {
-            span.style.animation = 'none';
-        });
-
-        // 2. Force reflow biar browser acknowledge reset
+        spans.forEach(span => { span.style.animation = 'none'; });
         void el.offsetHeight;
 
-        // 3. Start shine — delay MASUK di shorthand, fill-mode: both
         spans.forEach((span, i) => {
             const delay = (i / totalChars) * sweepDuration;
             span.style.animation = `letter-shine-reveal ${animDuration}s ease-in-out ${delay}s both`;
         });
 
-        // 4. Hitung kapan huruf terakhir selesai shine
         const lastDelay = ((totalChars - 1) / totalChars) * sweepDuration;
         const visualEnd = (lastDelay + animDuration * shineEndPercent) * 1000;
 
-        // 5. Hold → fade out → loop
         setTimeout(() => {
             el.style.transition = `opacity ${fadeOutTime}ms ease-out`;
             el.style.opacity = '0';
-
-            setTimeout(() => {
-                runShineLoop();
-            }, fadeOutTime + pauseTime);
+            setTimeout(() => { runShineLoop(); }, fadeOutTime + pauseTime);
         }, visualEnd + holdTime);
     }
 
@@ -686,6 +692,40 @@ document.addEventListener('click', () => {
     dropdownArrow.style.transform = 'rotate(0deg)';
 });
 modelDropdown.addEventListener('click', (e) => e.stopPropagation());
+
+// === Model Label Auto-Cycling Animation ===
+(() => {
+    const label = document.getElementById('modelLabel');
+    const models = ['ChatGPT 5.2', 'ChatGPT 5.2 Instant', 'ChatGPT 5.2 Thinking'];
+    let currentIdx = 0;
+    const displayTime = 3000;
+    const fadeTime = 400;
+
+    function cycleModel() {
+        // 1. Slide out ke atas + fade
+        label.classList.add('slide-out');
+
+        setTimeout(() => {
+            // 2. Ganti teks + posisi siap masuk dari bawah
+            currentIdx = (currentIdx + 1) % models.length;
+            label.textContent = models[currentIdx];
+            label.classList.remove('slide-out');
+            label.classList.add('slide-in-ready');
+
+            // 3. Force reflow
+            void label.offsetHeight;
+
+            // 4. Slide in dari bawah + fade in
+            label.classList.remove('slide-in-ready');
+
+            // 5. Tunggu → cycle lagi
+            setTimeout(cycleModel, displayTime);
+        }, fadeTime);
+    }
+
+    setTimeout(cycleModel, displayTime);
+})();
 </script>
+
 
 </body></html>
